@@ -6,7 +6,8 @@
     "LU.3a_Forms": {
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:component": {"skipTests": true}
+        "@schematics/angular:component": {"skipTests": true},
+        "@schematics/angular:service": {"skipTests": true,"path": "/src/app/services"}
       },
       "root": "",
       "sourceRoot": "src",

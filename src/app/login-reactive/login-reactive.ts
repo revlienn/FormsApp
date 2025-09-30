@@ -1,7 +1,9 @@
 import { JsonPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators, ValueChangeEvent } from '@angular/forms';
 import { passwordStrengthValidator } from '../../validators/password-strength.validator';
+import { usernameCheck } from '../../validators/username-check.validator';
+import { UserService } from '../services/user-service';
 
 @Component({
   selector: 'app-login-reactive',
@@ -17,6 +19,8 @@ export class LoginReactive implements OnInit {
   initMobilenumber:string='mobile number';
   stepTwo:boolean=false;
 
+  private userService=inject(UserService);
+
   ngOnInit(): void {
     console.log(this.reactiveLoginForm.value);
   }
@@ -29,7 +33,9 @@ export class LoginReactive implements OnInit {
     validators: [Validators.required, Validators.minLength(8),passwordStrengthValidator()]
   })
   username=new FormControl(this.initUsername,{
-    validators:[Validators.required, Validators.minLength(3)]
+    validators:[Validators.required, Validators.minLength(3)],
+    asyncValidators:usernameCheck(this.userService),
+    updateOn:'blur'
   })
 
   mobileNumber=new FormControl(this.initMobilenumber,{

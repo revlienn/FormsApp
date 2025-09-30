@@ -18,6 +18,9 @@
    <fieldset>
       <legend class="fieldset-legend">Username</legend>
       <input name="username" [formControl]="username" placeholder="Username" type="username" class="input">
+      @if(username.errors?.['usernameTaken']){
+         <br><span class="italic text-red-500">Username has been taken</span>
+      }
    </fieldset>
    <fieldset>
       <legend class="fieldset-legend">Mobile number</legend>
