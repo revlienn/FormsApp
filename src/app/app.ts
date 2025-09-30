@@ -7,7 +7,7 @@ import { LoginReactive } from './login-reactive/login-reactive';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,Login,LoginReactive],
+  imports: [RouterOutlet,LoginReactive],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
