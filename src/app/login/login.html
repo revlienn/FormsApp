@@ -1,0 +1,27 @@
+<h1>Login Form</h1>
+<form #loginForm="ngForm" (ngSubmit)="login(loginForm,$event)">
+   <fieldset class="fieldset">
+      <legend class="fieldset-legend">Email</legend>
+      <input [(ngModel)]="value.email" name="email" #email="ngModel" type="text" class="input" placeholder="Email" autocomplete="off" required minlength="4"
+         (ngModelChange)="onEmailChange($event)"
+         [ngModelOptions]="{updateOn:'blur'}">
+      @if(email.invalid && email.touched){
+         <span class="text-red-500 italic">Email is required</span>
+      }
+   </fieldset>
+   <fieldset class="fieldset">
+      <legend class="fieldset-legend">Password</legend>
+      <input [ngModel]="value.password" name="password" #password="ngModel" type="password" class="input" placeholder="Password" required minlength="4">
+   </fieldset>
+   @if(password.touched && password.invalid){
+      <span class="text-red-500 italic">Minimum 4 characters</span><br>
+   }
+   <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Submit</button>
+</form>
+
+<div>
+   {{email.errors|json}}<br>
+   {{email.value|json}}<br>
+   {{ loginForm.valid | json }}<br>
+      {{ loginForm.errors | json }}
+</div>

@@ -5,7 +5,9 @@
   "projects": {
     "LU.3a_Forms": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {"skipTests": true}
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -22,6 +24,7 @@
               }
             ],
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.css"
             ]
           },
