@@ -3,10 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { Login } from './login/login';
 import { NgFor } from '@angular/common';
 import { NgForm } from '@angular/forms';
+import { LoginReactive } from './login-reactive/login-reactive';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,Login],
+  imports: [RouterOutlet,Login,LoginReactive],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

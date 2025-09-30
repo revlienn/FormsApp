@@ -1,0 +1,16 @@
+<form action="" [formGroup]="reactiveLoginForm">
+   <fieldset>
+      <legend class="fieldset-legend">Email</legend>
+      <input name="email" formControlName="email" placeholder="Email address" type="email" class="input">
+   </fieldset>
+   <fieldset>
+      <legend class="fieldset-legend">Password</legend>
+      <input name="password" formControlName="password" plaeholder="Password" type="password" class="input">
+   </fieldset>
+   <button type="submit" [disabled]="!reactiveLoginForm.valid" class="btn btn-primary mt-3">Login</button>
+</form>
+
+<div>
+   VALUE : {{reactiveLoginForm.value|json}} <br>
+  VALID : {{reactiveLoginForm.valid}}
+</div>
