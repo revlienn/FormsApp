@@ -11,10 +11,10 @@
    </fieldset>
    <fieldset class="fieldset">
       <legend class="fieldset-legend">Password</legend>
-      <input [ngModel]="value.password" name="password" #password="ngModel" type="password" class="input" placeholder="Password" required minlength="4">
+      <input [ngModel]="value.password" name="password" #password="ngModel" type="password" class="input" placeholder="Password" required minlength="4" passwordStrength>
    </fieldset>
-   @if(password.touched && password.invalid){
-      <span class="text-red-500 italic">Minimum 4 characters</span><br>
+   @if(password.errors?.['passwordStrength']){
+      <span class="text-red-500 italic">Minimum 8 characters, must contain uppercase, lowercase, and a number</span><br/>
    }
    <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Submit</button>
 </form>

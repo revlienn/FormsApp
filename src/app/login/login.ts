@@ -2,10 +2,11 @@ import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
+import { PasswordStrengthDirective } from '../directives/password-strength.directive';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule,MatCardModule,JsonPipe],
+  imports: [FormsModule,MatCardModule,JsonPipe,PasswordStrengthDirective],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
