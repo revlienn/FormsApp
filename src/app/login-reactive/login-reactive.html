@@ -1,16 +1,23 @@
 <form action="" [formGroup]="reactiveLoginForm" (submit)="login()">
    @if(!stepTwo){
-      <fieldset>
-         <legend class="fieldset-legend">Email</legend>
-         <input name="email" [formControl]="email" placeholder="Email address" type="email" class="input">
-      </fieldset>
-      <fieldset>
-         <legend class="fieldset-legend">Password</legend>
-         <input name="password" [formControl]="password" placeholder="Password" type="password" class="input">
-      </fieldset>
-      @if(password.errors?.['passwordStrength']){
-      <span class="text-red-500 italic">Minimum 8 characters, must contain uppercase, lowercase, and a number</span><br>
+   <fieldset>
+      <legend class="fieldset-legend">Email</legend>
+      <input name="email" [formControl]="email" placeholder="Email address" type="email" class="input">
+      @if(email.touched && email.valid){
+      <fa-icon [icon]="faCheck" class="ps-2 text-green-600" />
       }
+
+   </fieldset>
+   <fieldset>
+      <legend class="fieldset-legend">Password</legend>
+      <input name="password" [formControl]="password" placeholder="Password" type="password" class="input">
+      @if(password.touched && password.valid){
+      <fa-icon [icon]="faCheck" class="ps-2 text-green-600" />
+      }
+   </fieldset>
+   @if(password.touched && password.errors?.['passwordStrength']){
+   <span class="text-red-500 italic">Minimum 8 characters, must contain uppercase, lowercase, and a number</span><br>
+   }
    }
 
 
@@ -18,13 +25,20 @@
    <fieldset>
       <legend class="fieldset-legend">Username</legend>
       <input name="username" [formControl]="username" placeholder="Username" type="username" class="input">
+      @if(username.touched && username.valid ){
+      <fa-icon [icon]="faCheck" class="ps-2 text-green-600" />
+      }
       @if(username.errors?.['usernameTaken']){
-         <br><span class="italic text-red-500">Username has been taken</span>
+      <br><span class="italic text-red-500">Username has been taken</span>
       }
    </fieldset>
    <fieldset>
       <legend class="fieldset-legend">Mobile number</legend>
-      <input name="mobile number" [formControl]="mobileNumber" placeholder="Mobile number" type="mobile number" class="input">
+      <input name="mobile number" [formControl]="mobileNumber" placeholder="Mobile number" type="mobile number"
+         class="input">
+      @if(mobileNumber.touched && mobileNumber.valid){
+      <fa-icon [icon]="faCheck" class="ps-2 text-green-600" />
+      }
    </fieldset>
    }
 

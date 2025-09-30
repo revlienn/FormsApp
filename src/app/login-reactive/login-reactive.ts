@@ -5,19 +5,25 @@ import { passwordStrengthValidator } from '../../validators/password-strength.va
 import { usernameCheck } from '../../validators/username-check.validator';
 import { UserService } from '../services/user-service';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {faCheck} from '@fortawesome/free-solid-svg-icons'
+
+
 @Component({
   selector: 'app-login-reactive',
-  imports: [JsonPipe, ReactiveFormsModule],
+  imports: [JsonPipe, ReactiveFormsModule,FontAwesomeModule],
   templateUrl: './login-reactive.html',
   styleUrl: './login-reactive.css'
 })
 export class LoginReactive implements OnInit {
 
   initEmail:string='username@email.com';
-  initPassword:string='password';
+  initPassword:string='';
   initUsername:string='username';
   initMobilenumber:string='mobile number';
   stepTwo:boolean=false;
+
+  faCheck=faCheck;
 
   private userService=inject(UserService);
 
