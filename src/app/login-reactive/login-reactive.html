@@ -1,33 +1,40 @@
 <form action="" [formGroup]="reactiveLoginForm" (submit)="login()">
-   <fieldset>
-      <legend class="fieldset-legend">Email</legend>
-      <input name="email" 
-      [formControl]="email"
-      placeholder="Email address" 
-      type="email" 
-      class="input">
-   </fieldset>
-   <fieldset>
-      <legend class="fieldset-legend">Password</legend>
-      <input name="password" 
-      [formControl]="password"
-      placeholder="Password" 
-      type="password" 
-      class="input">
-   </fieldset>
-   @if(password.errors?.['passwordStrength']){
+   @if(!stepTwo){
+      <fieldset>
+         <legend class="fieldset-legend">Email</legend>
+         <input name="email" [formControl]="email" placeholder="Email address" type="email" class="input">
+      </fieldset>
+      <fieldset>
+         <legend class="fieldset-legend">Password</legend>
+         <input name="password" [formControl]="password" placeholder="Password" type="password" class="input">
+      </fieldset>
+      @if(password.errors?.['passwordStrength']){
       <span class="text-red-500 italic">Minimum 8 characters, must contain uppercase, lowercase, and a number</span><br>
+      }
    }
+
+
+   @if(stepTwo){
+   <fieldset>
+      <legend class="fieldset-legend">Username</legend>
+      <input name="username" [formControl]="username" placeholder="Username" type="username" class="input">
+   </fieldset>
+   <fieldset>
+      <legend class="fieldset-legend">Mobile number</legend>
+      <input name="mobile number" [formControl]="mobileNumber" placeholder="Mobile number" type="mobile number" class="input">
+   </fieldset>
+   }
+
+
    <div class="flex gap-3 mt-4">
-      <button type="submit" (click)="reset()" class="btn btn-outline btn-warning">Reset</button>
-   <button type="submit" 
-   [disabled]="!reactiveLoginForm.valid" 
-   class="btn btn-primary">Login</button>
+      <button type="button" (click)="reset()" class="btn btn-outline btn-warning">Reset</button>
+      <button type="button" (click)="toggleStep()" class="btn btn-accent">{{stepTwo?'Back':'Next'}}</button>
+      <button type="submit" [disabled]="!reactiveLoginForm.valid" class="btn btn-primary">Login</button>
    </div>
-   
+
 </form>
 
 <div>
    VALUE : {{reactiveLoginForm.value|json}} <br>
-  VALID : {{reactiveLoginForm.valid}}
+   VALID : {{reactiveLoginForm.valid}}
 </div>
