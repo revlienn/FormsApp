@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators, ValueChangeEvent } from '@angular/forms';
 import { passwordStrengthValidator } from '../../validators/password-strength.validator';
 
@@ -9,13 +9,20 @@ import { passwordStrengthValidator } from '../../validators/password-strength.va
   templateUrl: './login-reactive.html',
   styleUrl: './login-reactive.css'
 })
-export class LoginReactive {
+export class LoginReactive implements OnInit {
 
-  email = new FormControl("email@gmail.com", {
+  initEmail:string='username@email.com';
+  initPassword:string='password';
+
+  ngOnInit(): void {
+    console.log(this.reactiveLoginForm.value);
+  }
+
+  email = new FormControl(this.initEmail, {
     validators: [Validators.required, Validators.email],
     updateOn:'blur'
   })
-  password = new FormControl("Password", {
+  password = new FormControl(this.initPassword, {
     validators: [Validators.required, Validators.minLength(8),passwordStrengthValidator()]
   })
 
@@ -23,4 +30,20 @@ export class LoginReactive {
     email: this.email,
     password: this.password
   })
+
+  reset(){
+    this.reactiveLoginForm.reset({
+      email:this.initEmail,
+      password:this.initPassword
+    });
+    console.log(this.reactiveLoginForm.value);
+  }
+
+  login(){
+    console.log(this.reactiveLoginForm.value);
+    this.reactiveLoginForm.reset({
+      email:'',
+      password:''
+    });
+  }
 }
