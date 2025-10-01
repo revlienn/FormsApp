@@ -1,0 +1,1 @@
+export const MEMBERSHIP_TYPES=['Gold','Silver','Bronze'];

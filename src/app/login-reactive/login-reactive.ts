@@ -9,9 +9,16 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {faCheck} from '@fortawesome/free-solid-svg-icons'
 
 
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core'; 
+
+
 @Component({
   selector: 'app-login-reactive',
-  imports: [JsonPipe, ReactiveFormsModule,FontAwesomeModule],
+  imports: [JsonPipe, ReactiveFormsModule,FontAwesomeModule,MatFormFieldModule, MatInputModule, MatDatepickerModule,
+  MatNativeDateModule ],
   templateUrl: './login-reactive.html',
   styleUrl: './login-reactive.css'
 })
