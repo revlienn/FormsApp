@@ -1,15 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Login } from './login/login';
-import { NgFor } from '@angular/common';
 import { NgForm } from '@angular/forms';
-import { LoginReactive } from './login-reactive/login-reactive';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import { Registration } from './registration/registration';
+import { Navbar } from './navbar/navbar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,FontAwesomeModule,Registration],
+  imports: [RouterOutlet,FontAwesomeModule,Navbar],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
