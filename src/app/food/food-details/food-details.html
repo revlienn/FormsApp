@@ -1,3 +1,9 @@
-@if(food){
-   <p>{{food.name}},{{food.category}},{{food.calories}}</p>
+@if(food$|async;as food){
+<p>{{food.name}},{{food.category}},{{food.calories}}</p>
+<div class="flex gap-3">
+   @if(food.id>=2){<button class="btn btn-outline" (click)="previous(food)">previous</button>}
+   @if(food.id<=9){<button class="btn btn-outline" (click)="next(food)">next</button>}
+
+</div>
+
 }
