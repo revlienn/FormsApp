@@ -7,15 +7,31 @@ import { FoodList } from './food/food-list/food-list';
 import { FoodDetails } from './food/food-details/food-details';
 import { foodResolver } from './services/food-resolver';
 import { foodlistResolver } from './services/foodlist-resolver';
+import { mockAuthChildGuard, mockAuthGuard } from './services/mock-auth-guard';
 
 export const routes: Routes = [
-   {path:'',redirectTo:'login',pathMatch:'full'},
-   {path:'login',component:Login},
-   {path:'login-reactive',component:LoginReactive},
-   {path:'register',component:Registration},
-   {path:'food',component:FoodList,resolve:{food:foodlistResolver}},
-   {path:'food/:id',component:FoodDetails,resolve:{foodDetails:foodResolver}},
-   {path:'**',component:PageNotFound}
+   { path: '', redirectTo: 'login', pathMatch: 'full' },
+   { path: 'login', component: Login },
+   { path: 'login-reactive', component: LoginReactive },
+   { path: 'register', component: Registration },
+   {
+      path: 'food', 
+      resolve: {food:foodlistResolver}, 
+      canActivate: [mockAuthGuard], 
+      canActivateChild: [mockAuthChildGuard], 
+      children: [
+         {
+            path: '',
+            component: FoodList
+         },
+         {
+            path: ':id',
+            component: FoodDetails,
+            resolve:{foodDetails:foodResolver}
+         }
+      ]
+   },
+   { path: '**', component: PageNotFound }
    // {
    //    path:'food',
    //    loadChildren:()=>import('./food/food-module').then((m)=>m.FoodModule)

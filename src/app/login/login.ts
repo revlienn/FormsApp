@@ -1,8 +1,9 @@
 import { JsonPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import { PasswordStrengthDirective } from '../directives/password-strength.directive';
+import { MockLoginService } from '../services/mocklogin-service';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,9 @@ import { PasswordStrengthDirective } from '../directives/password-strength.direc
   styleUrl: './login.css',
 })
 export class Login{
+
+  protected mockLoginService=inject(MockLoginService);
+
   value={
     email:'email@test.com',
     password:'1234'
@@ -18,7 +22,8 @@ export class Login{
 
   login(loginForm:NgForm, submit:Event){
     console.log(this.value);
-    //console.log(loginForm.value, loginForm.valid,submit)
+    this.mockLoginService.logIn();
+    console.log(this.mockLoginService.isLoggedIn());
   }
 
   onEmailChange(change:any){

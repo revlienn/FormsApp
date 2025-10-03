@@ -13,7 +13,6 @@ export class FoodList {
   protected foodList=this.route.snapshot.data['food'];
 
   constructor(){
-    console.log(this.foodList.length)
   }
 
 }
