@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FoodCard } from '../food-card/food-card';
 import { Food } from '../../types/food';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-food-list',
@@ -9,8 +10,7 @@ import { Food } from '../../types/food';
   styleUrl: './food-list.css'
 })
 export class FoodList {
-  food:Food[]=[
-    { id: 1, name: 'Apple', calories: 95, category: 'Fruit' },
-    { id: 2, name: 'Banana', calories: 105, category: 'Fruit' },
-  ];
+  private route=inject(ActivatedRoute);
+  protected foodList=this.route.snapshot.data['food'];
+
 }

@@ -6,13 +6,14 @@ import { PageNotFound } from './page-not-found/page-not-found';
 import { FoodList } from './food/food-list/food-list';
 import { FoodDetails } from './food/food-details/food-details';
 import { foodResolver } from './services/food-resolver';
+import { foodlistResolver } from './services/foodlist-resolver';
 
 export const routes: Routes = [
    {path:'',redirectTo:'login',pathMatch:'full'},
    {path:'login',component:Login},
    {path:'login-reactive',component:LoginReactive},
    {path:'register',component:Registration},
-   {path:'food',component:FoodList},
+   {path:'food',component:FoodList,resolve:{food:foodlistResolver}},
    {path:'food/:id',component:FoodDetails,resolve:{foodDetails:foodResolver}},
    {path:'**',component:PageNotFound}
    // {
