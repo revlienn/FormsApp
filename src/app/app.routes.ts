@@ -8,12 +8,13 @@ import { FoodDetails } from './food/food-details/food-details';
 import { foodResolver } from './services/food-resolver';
 import { foodlistResolver } from './services/foodlist-resolver';
 import { mockAuthChildGuard, mockAuthGuard } from './services/mock-auth-guard';
+import { confirmExitGuard } from './services/confirm-exit-guard';
 
 export const routes: Routes = [
    { path: '', redirectTo: 'login', pathMatch: 'full' },
    { path: 'login', component: Login },
    { path: 'login-reactive', component: LoginReactive },
-   { path: 'register', component: Registration },
+   { path: 'register', component: Registration, canDeactivate:[confirmExitGuard] },
    {
       path: 'food', 
       resolve: {food:foodlistResolver}, 

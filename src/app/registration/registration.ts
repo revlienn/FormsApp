@@ -14,6 +14,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox'
 import {MatSelectChange, MatSelectModule} from '@angular/material/select';
 import { MemberService } from '../services/member-service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class Registration implements OnInit {
 
   userService = inject(UserService);
   memberService = inject(MemberService);
+  router=inject(Router);
 
   email = new FormControl('Email', {
     validators: [Validators.email, Validators.required]
@@ -94,4 +96,17 @@ export class Registration implements OnInit {
   annualToggle(event: MatCheckboxChange) {
     this.annualCheck.setValue(event.checked);
   }
+
+  // confirmExit(nextUrl:string):boolean{
+  //   const confirmLeave=confirm('Are you sure?');
+  //   if(confirmLeave){
+  //     this.router.navigateByUrl(nextUrl);
+  //     return true;
+  //   }
+  //     return false
+  // }
+
+  confirmExit(): boolean {
+  return confirm('You have unsaved changes. Leave this page?');
+}
 }
