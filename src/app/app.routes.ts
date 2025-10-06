@@ -9,6 +9,7 @@ import { foodResolver } from './services/food-resolver';
 import { foodlistResolver } from './services/foodlist-resolver';
 import { mockAuthChildGuard, mockAuthGuard } from './services/mock-auth-guard';
 import { confirmExitGuard } from './services/confirm-exit-guard';
+import { canLoadDrinksGuard } from './services/can-load-drinks-guard';
 
 export const routes: Routes = [
    { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -31,6 +32,11 @@ export const routes: Routes = [
             resolve:{foodDetails:foodResolver}
          }
       ]
+   },
+   {
+      path:'drinks',
+      loadChildren:()=>import('./beverages/beverages-module').then((b)=>b.BeveragesModule),
+      canMatch:[canLoadDrinksGuard]
    },
    { path: '**', component: PageNotFound }
    // {
