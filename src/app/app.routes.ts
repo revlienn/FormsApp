@@ -36,7 +36,13 @@ export const routes: Routes = [
    {
       path:'drinks',
       loadChildren:()=>import('./beverages/beverages-module').then((b)=>b.BeveragesModule),
-      canMatch:[canLoadDrinksGuard]
+      canMatch:[canLoadDrinksGuard],
+      data:{preload:false}
+   },
+   {
+      path:'snacks',
+      loadChildren:()=>import('./snacks/snacks-module').then((m)=>m.SnacksModule),
+      data:{preload:true}
    },
    { path: '**', component: PageNotFound }
    // {
