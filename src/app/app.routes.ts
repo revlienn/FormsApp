@@ -10,6 +10,7 @@ import { foodlistResolver } from './services/foodlist-resolver';
 import { mockAuthChildGuard, mockAuthGuard } from './services/mock-auth-guard';
 import { confirmExitGuard } from './services/confirm-exit-guard';
 import { canLoadDrinksGuard } from './services/can-load-drinks-guard';
+import { Chat } from './chat/chat';
 
 export const routes: Routes = [
    { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -43,6 +44,11 @@ export const routes: Routes = [
       path:'snacks',
       loadChildren:()=>import('./snacks/snacks-module').then((m)=>m.SnacksModule),
       data:{preload:true}
+   },
+   {
+      path:'helpdesk-chat',
+      component:Chat,
+      outlet:'chat'
    },
    { path: '**', component: PageNotFound }
    // {

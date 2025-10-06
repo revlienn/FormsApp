@@ -1,5 +1,9 @@
 <html>
   <app-navbar></app-navbar>
   <router-outlet />
+  
+
+<a class="btn btn-secondary" [routerLink]="[{ outlets: { chat: ['helpdesk-chat'] } }]">Test chat</a>
+<router-outlet name="chat"></router-outlet>
 
 </html>
