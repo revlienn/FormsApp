@@ -1,8 +1,7 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { PreloadAllModules, provideRouter, withPreloading, withViewTransitions } from '@angular/router';
+import { provideRouter, withPreloading, withRouterConfig, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
-import { prefix } from '@fortawesome/free-solid-svg-icons';
 import { CustomPreloadStrategy } from './services/custom-preload-snack.strategy';
 
 export const appConfig: ApplicationConfig = {
@@ -10,6 +9,8 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     CustomPreloadStrategy,
-    provideRouter(routes,withViewTransitions(),withPreloading(CustomPreloadStrategy))
+    provideRouter(routes,withViewTransitions(),withPreloading(CustomPreloadStrategy),withRouterConfig({
+      paramsInheritanceStrategy:'always',
+    }))
   ]
 };
