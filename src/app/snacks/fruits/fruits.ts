@@ -24,6 +24,8 @@ export class Fruits implements OnInit{
       error:(err:Error)=>console.error(err.message),
       complete:()=>console.log('complete 🔥')
     })
+
+    this.fruits$.subscribe((res)=>console.log(`2-${res}`))
   }
 
   ngOnDestroy():void{
