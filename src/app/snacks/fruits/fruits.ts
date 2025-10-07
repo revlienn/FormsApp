@@ -32,6 +32,17 @@ export class Fruits implements OnInit {
     })
   })
 
+  obs$=new Observable<number>((s)=>{
+    let number=0;
+    let myInterval=setInterval(()=>{
+      console.log("NUMBER: ",number);
+      s.next(number++)
+    },1500)
+    return(()=>{
+      clearInterval(myInterval)
+    })
+  })
+
   private destroy$ = new Subject<void>();
 
   ngOnInit(): void {
@@ -39,6 +50,11 @@ export class Fruits implements OnInit {
     this.timerLog$.subscribe((s) => {
       console.log(`${s}`)
     })
+    const unending=this.obs$.subscribe({
+      next:(v)=>{console.log(v)},
+      complete:()=>console.log('Completed')
+    })
+    setTimeout(()=>{unending.unsubscribe()},4500)
   
   }
 
