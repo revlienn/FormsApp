@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { catchError, EMPTY, filter, map, Observable, of, Subject, tap } from 'rxjs';
+import { catchError, combineLatest, concat, EMPTY, filter, from, map, Observable, of, Subject, tap, zip } from 'rxjs';
 import { ajax } from 'rxjs/ajax'
 
 type News = {
@@ -16,21 +16,18 @@ type News = {
 export class Fruits implements OnInit {
 
   private destroy$ = new Subject<void>();
-
-  errorObservable$=new Observable<any>((r)=>{
-    setTimeout(()=>{
-      r.error(new Error('Error 🧨'))
-    },3000)
-  })
-
   ngOnInit(): void {
 
-    this.errorObservable$.pipe(
-      catchError((err)=>of(EMPTY))
-    ).subscribe({
-      next:(v)=>console.log(v),
-      complete:()=>console.log('COMPLETED')
-    });
+    const names=of('Alice','Bob');
+    const ages=of(60,20);
+
+    combineLatest([names,ages]).subscribe(([username,age])=>{
+      console.log(`${username} is ${age} years old`)
+    })
+
+    zip([names,ages]).subscribe(([username,age])=>{
+      console.log(`${username} is ${age} years old`)
+    })
   }
 
   ngOnDestroy(): void {
