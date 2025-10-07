@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { catchError, combineLatest, concat, concatMap, EMPTY, filter, from, fromEvent, interval, map, mergeMap, Observable, of, Subject, switchMap, take, takeUntil, tap, zip } from 'rxjs';
+import { catchError, combineLatest, concat, concatMap, EMPTY, filter, from, fromEvent, interval, map, merge, mergeMap, Observable, of, startWith, Subject, switchMap, take, takeUntil, tap, withLatestFrom, zip } from 'rxjs';
 import { ajax } from 'rxjs/ajax'
 
 type News = {
@@ -16,26 +16,27 @@ type News = {
 export class Fruits implements OnInit {
 
   private destroy$ = new Subject<void>();
-  clicks$=fromEvent(document,'click');
-  numbers$=interval(500).pipe(take(5));
+
+  fast$=interval(1000).pipe(take(3));
+  slow$=interval(1500).pipe(take(3));
   
   ngOnInit(): void {
 
-    // this.clicks$.pipe(
-    //   switchMap(()=>this.numbers$)
-    // ).subscribe(
-    //   val=>console.log(`SWITCHMAP Click: ${val}`)
-    // )
+    combineLatest(this.fast$,this.slow$).subscribe(([f,s])=>{
+      console.log(`Fast 🔴 ${f}, Slow 🟢 ${s}`)
+    })
 
-    // this.clicks$.pipe(
-    //   mergeMap(()=>this.numbers$)
-    // ).subscribe(
-    //   val=>console.log(`MERGE MAP, ${val}`)
-    // )
+    //concat(this.fast$,this.slow$).subscribe((f)=>{console.log(f)})
 
-    this.clicks$.pipe(
-      concatMap(()=>this.numbers$)
-    ).subscribe(val=>console.log(val))
+    //merge(this.fast$,this.slow$).subscribe((v)=>console.log(v));
+
+    // of('World').pipe(
+    //   startWith(('Hello'))
+    // ).subscribe((v)=>console.log(v));
+
+    // this.slow$.pipe(
+    //   withLatestFrom(this.fast$)
+    // ).subscribe(([s,f])=>console.log(`slow ${s} fast ${f}`))
 
   }
 
