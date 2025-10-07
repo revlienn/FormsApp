@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { from, fromEvent, Observable, of, Subject, Subscription } from 'rxjs';
+import { from, fromEvent, interval, Observable, of, Subject, Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'app-fruits',
@@ -13,9 +13,16 @@ export class Fruits implements OnInit,AfterViewInit {
 
   private destroy$ = new Subject<void>();
 
+
   ngAfterViewInit(): void {
-    fromEvent<MouseEvent>(this.fromEventBtn.nativeElement,"click").subscribe((res)=>console.log(res))
-    fromEvent<MouseEvent>(this.fromEventBtn.nativeElement,"mousedown").subscribe((res)=>console.log('mouse down'))
+    timer(3000).subscribe(()=>{
+      const btn=this.fromEventBtn.nativeElement;
+      btn.classList.remove('btn-outline');
+      btn.classList.add('btn-primary')
+    })
+
+    const intervalVar$=interval(1000).subscribe(()=>console.log('interval 🎁'));
+    setTimeout(()=>{intervalVar$.unsubscribe()},3000)
   }
 
   ngOnInit(): void {
