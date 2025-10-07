@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { from, Observable, of, Subject, Subscription } from 'rxjs';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { from, fromEvent, Observable, of, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-fruits',
@@ -7,14 +7,18 @@ import { from, Observable, of, Subject, Subscription } from 'rxjs';
   styleUrl: './fruits.css',
   standalone: false
 })
-export class Fruits implements OnInit {
+export class Fruits implements OnInit,AfterViewInit {
 
+  @ViewChild('fromEventBtn') fromEventBtn!:ElementRef<HTMLButtonElement>;
 
   private destroy$ = new Subject<void>();
 
+  ngAfterViewInit(): void {
+    fromEvent<MouseEvent>(this.fromEventBtn.nativeElement,"click").subscribe((res)=>console.log(res))
+    fromEvent<MouseEvent>(this.fromEventBtn.nativeElement,"mousedown").subscribe((res)=>console.log('mouse down'))
+  }
+
   ngOnInit(): void {
-    of('Apple').subscribe((res)=>console.log(res));
-    from(['Banana','Cherry']).subscribe((res)=>console.log(res));
   }
 
   ngOnDestroy(): void {
