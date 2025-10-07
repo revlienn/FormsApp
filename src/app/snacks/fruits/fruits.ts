@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { filter, map, of, Subject, tap } from 'rxjs';
+import { catchError, EMPTY, filter, map, Observable, of, Subject, tap } from 'rxjs';
 import { ajax } from 'rxjs/ajax'
 
 type News = {
@@ -17,27 +17,20 @@ export class Fruits implements OnInit {
 
   private destroy$ = new Subject<void>();
 
+  errorObservable$=new Observable<any>((r)=>{
+    setTimeout(()=>{
+      r.error(new Error('Error 🧨'))
+    },3000)
+  })
+
   ngOnInit(): void {
 
-
-    const userData$ = ajax<any>("https://randomuser.me/api");
-
-    userData$.pipe(map((user) => ({
-      firstName: user.response.results[0].name.first,
-      lastName: user.response.results[0].name.last,
-      country: user.response.results[0].location.country
-    }))).subscribe(({ firstName, lastName, country }) => {
-      console.log(firstName, lastName, '-',country)
-    })
-
-    userData$.subscribe((r) => console.log(r))
-
-    of(1,23,7,10).pipe(
-      filter((num)=>num>5),
-      tap((filtered)=>console.log("🕵️‍♀️SPY ",filtered)),
-      map((spied)=>spied*2)
-    ).subscribe((v)=>console.log(`TIMES 2: ${v}`))
-    
+    this.errorObservable$.pipe(
+      catchError((err)=>of(EMPTY))
+    ).subscribe({
+      next:(v)=>console.log(v),
+      complete:()=>console.log('COMPLETED')
+    });
   }
 
   ngOnDestroy(): void {
