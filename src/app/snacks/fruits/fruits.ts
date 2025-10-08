@@ -1,5 +1,6 @@
+import { JsonPipe } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { catchError, combineLatest, concat, concatMap, EMPTY, filter, from, fromEvent, interval, map, merge, mergeMap, Observable, of, startWith, Subject, switchMap, take, takeUntil, tap, withLatestFrom, zip } from 'rxjs';
+import { catchError, combineLatest, concat, concatMap, EMPTY, filter, from, fromEvent, interval, map, merge, mergeMap, Observable, of, scan, startWith, Subject, switchMap, take, takeUntil, tap, withLatestFrom, zip } from 'rxjs';
 import { ajax } from 'rxjs/ajax'
 
 type News = {
@@ -13,30 +14,34 @@ type News = {
   styleUrl: './fruits.css',
   standalone: false
 })
-export class Fruits implements OnInit {
+export class Fruits implements AfterViewInit {
+
+  @ViewChild('countBtn') countBtn!:ElementRef<HTMLButtonElement>;
+  @ViewChild('showCalcBtn') showCalcBtn!:ElementRef<HTMLButtonElement>;
 
   private destroy$ = new Subject<void>();
 
-  fast$=interval(1000).pipe(take(3));
-  slow$=interval(1500).pipe(take(3));
+  location:{x:number,y:number}[]=[];
+  time:number[]=[];
   
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
 
-    combineLatest(this.fast$,this.slow$).subscribe(([f,s])=>{
-      console.log(`Fast 🔴 ${f}, Slow 🟢 ${s}`)
-    })
+    fromEvent(this.countBtn.nativeElement,'click').pipe(
+      scan(count=>count+1,0)
+    ).subscribe((count)=>console.log(`Tally: `,count,` times`))
 
-    //concat(this.fast$,this.slow$).subscribe((f)=>{console.log(f)})
-
-    //merge(this.fast$,this.slow$).subscribe((v)=>console.log(v));
-
-    // of('World').pipe(
-    //   startWith(('Hello'))
-    // ).subscribe((v)=>console.log(v));
-
-    // this.slow$.pipe(
-    //   withLatestFrom(this.fast$)
-    // ).subscribe(([s,f])=>console.log(`slow ${s} fast ${f}`))
+    fromEvent<MouseEvent>(this.showCalcBtn.nativeElement,'click').pipe(
+      scan((acc,curr)=>{
+        const currentLocation={x:curr.clientX,y:curr.clientY};
+        const currentTime=curr.timeStamp;
+        this.location.push(currentLocation);
+        this.time.push(currentTime);
+        return acc+1
+      },0))
+      .subscribe((count)=>{
+        console.log(`Calc: `,count,` times`);
+        console.log(this.location, this.time);
+      })
 
   }
 
